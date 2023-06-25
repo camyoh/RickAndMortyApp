@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DetailCardModel {
+struct DetailScreenModel {
     let name: String
     let picture: CharacterImageModel
     let species: String
@@ -18,9 +18,9 @@ struct DetailCardModel {
 }
 
 #if TESTING
-extension DetailCardModel {
-    public static let testModel: DetailCardModel = {
-       DetailCardModel(
+extension DetailScreenModel {
+    public static let testModel: DetailScreenModel = {
+       DetailScreenModel(
         name: "Rick Sanchez",
         picture: .testModel,
         species: "Human",

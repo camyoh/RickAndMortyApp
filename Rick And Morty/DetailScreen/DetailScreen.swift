@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct DetailCardView: View {
-    var viewModel: DetailCardViewModel
+struct DetailScreen: View {
+    var viewModel: DetailScreenViewModel
     
     var body: some View {
         VStack {
@@ -65,6 +65,6 @@ struct DetailCardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailCardView(viewModel: .testModel)
+        DetailScreen(viewModel: .testModel)
     }
 }
