@@ -18,26 +18,30 @@ struct CardView: View {
         Button {
             print("Hello there!")
         } label: {
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(model.title)
-                    .font(.title)
-                    .foregroundColor(.black)
-                    .padding(.top, 10)
-                Spacer()
-                Text(model.body)
-                    .font(.body)
-                    .lineLimit(2)
-                    .foregroundColor(.black)
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .textCase(.uppercase)
+                    .foregroundColor(.white)
+                    .padding()
+                if !model.body.isEmpty {
+                    Text(model.body)
+                        .font(.body)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 16)
+                }
                 Image(model.image.rawValue)
                     .resizable()
                     .frame(width: 40, height: 40)
                     .padding()
             }
-            .frame(maxWidth: .infinity)
-            .background(.gray.opacity(0.5))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.gray.opacity(0.3))
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-
     }
 }
 
@@ -45,15 +49,17 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            HStack {
+            HStack(alignment: .top) {
                 CardView(model: CardModel.testModel)
-                CardView(model: CardModel.testModel)
+                CardView(model: CardModel.testModel2)
             }
             HStack {
                 CardView(model: CardModel.testModel)
                 CardView(model: CardModel.testModel)
             }
         }
+        .padding()
+        .background(.green)
     }
 }
 #endif

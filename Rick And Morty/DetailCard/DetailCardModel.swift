@@ -21,7 +21,7 @@ struct DetailCardModel {
 extension DetailCardModel {
     public static let testModel: DetailCardModel = {
        DetailCardModel(
-        name: "Rick",
+        name: "Rick Sanchez",
         picture: .testModel,
         species: "Human",
         gender: "Male",

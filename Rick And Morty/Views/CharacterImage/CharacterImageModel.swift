@@ -26,7 +26,7 @@ extension CharacterImageModel {
     static let testModel: CharacterImageModel = {
         CharacterImageModel(
             imageUrl: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"),
-            backgroundColor: .blue)
+            backgroundColor: Color(red: 250/255, green: 248/255, blue: 191/255))
     }()
 }
 #endif

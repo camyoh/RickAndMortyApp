@@ -26,7 +26,13 @@ extension CardModel {
     public static let testModel: CardModel = {
        CardModel(
         title: "Title",
-        body: "Body body body body body body",
+        body: "Body Body Body Body Body Body Body Body Body",
+        image: .episode)
+    }()
+    public static let testModel2: CardModel = {
+       CardModel(
+        title: "Title",
+        body: "",
         image: .episode)
     }()
 }

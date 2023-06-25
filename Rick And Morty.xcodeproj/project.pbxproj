@@ -61,10 +61,9 @@
 		1CFC12812A47A5B200F4DD35 /* Rick And Morty */ = {
 			isa = PBXGroup;
 			children = (
+				1CFC129D2A48628500F4DD35 /* DetailCard */,
 				1CFC12902A47A62900F4DD35 /* Views */,
 				1CFC12822A47A5B200F4DD35 /* Rick_And_MortyApp.swift */,
-				1CFC12842A47A5B200F4DD35 /* DetailCardView.swift */,
-				1CFC129B2A47ED1000F4DD35 /* DetailCardModel.swift */,
 				1CFC12862A47A5B500F4DD35 /* Assets.xcassets */,
 				1CFC12882A47A5B500F4DD35 /* Preview Content */,
 			);
@@ -104,6 +103,15 @@
 				1CFC12992A47DEA200F4DD35 /* CardModel.swift */,
 			);
 			path = Card;
+			sourceTree = "<group>";
+		};
+		1CFC129D2A48628500F4DD35 /* DetailCard */ = {
+			isa = PBXGroup;
+			children = (
+				1CFC12842A47A5B200F4DD35 /* DetailCardView.swift */,
+				1CFC129B2A47ED1000F4DD35 /* DetailCardModel.swift */,
+			);
+			path = DetailCard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
