@@ -8,13 +8,13 @@
 import Foundation
 
 struct DetailScreenViewModel {
-    let cardData: DetailScreenModel
+    let data: DetailScreenModel
 }
 
 #if TESTING
 extension DetailScreenViewModel {
     public static var testModel: DetailScreenViewModel = {
-        DetailScreenViewModel(cardData: .testModel)
+        DetailScreenViewModel(data: .testModel)
     }()
 }
 #endif

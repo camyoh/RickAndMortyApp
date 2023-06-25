@@ -13,29 +13,29 @@ struct DetailScreen: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                Text(viewModel.cardData.name)
+                Text(viewModel.data.name)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                CharacterImageView(model: viewModel.cardData.picture)
+                CharacterImageView(model: viewModel.data.picture)
                 HStack{
-                    Text("\(viewModel.cardData.species) - \(viewModel.cardData.gender)")
+                    Text("\(viewModel.data.species) - \(viewModel.data.gender)")
                         .font(.title2)
                         .foregroundColor(.white)
                 }
-                Text(viewModel.cardData.type)
+                Text(viewModel.data.type)
                     .font(.title3)
                     .foregroundColor(.white)
-                Text("Status: \(viewModel.cardData.status)")
+                Text("Status: \(viewModel.data.status)")
                     .font(.title3)
                     .foregroundColor(.white)
                 HStack(alignment: .top) {
-                    CardView(model: viewModel.cardData.cards[0])
-                    CardView(model: viewModel.cardData.cards[1])
+                    CardView(model: viewModel.data.cards[0])
+                    CardView(model: viewModel.data.cards[1])
                 }
                 HStack(alignment: .top) {
-                    CardView(model: viewModel.cardData.cards[2])
-                    CardView(model: viewModel.cardData.cards[3])
+                    CardView(model: viewModel.data.cards[2])
+                    CardView(model: viewModel.data.cards[3])
                 }
             }
         }
