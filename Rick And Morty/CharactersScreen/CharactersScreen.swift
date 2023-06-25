@@ -11,23 +11,33 @@ struct CharactersScreen: View {
     let viewModel: CharactersViewModel
     @State private var searchText = ""
     
+    init(
+        viewModel: CharactersViewModel
+    ) {
+        UINavigationBar.appearance().tintColor = .white
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         NavigationView {
-            List {
-                Text("Hello there!")
-                Text("Hello there!")
-                Text("Hello there!")
-            }
-            .navigationTitle(viewModel.data.title)
-            .toolbar {
-                Button {
-                    print("edit")
-                } label: {
-                    Image(systemName: "pencil")
+            ScrollView {
+                ForEach(viewModel.data.cards) { card in
+                    CharacterCardView(model: card)
                 }
             }
+            .scrollIndicators(.hidden)
+            .padding(.horizontal, 20)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .background(Color(red: 13/255, green: 64/255, blue: 60/255))
+            .navigationTitle(
+                Text(viewModel.data.title)
+                    .foregroundColor(.white)
+            )
         }
-        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Search a character").foregroundColor(.white))
+        .environment(\.colorScheme, .dark)
     }
 }
 

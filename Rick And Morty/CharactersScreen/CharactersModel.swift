@@ -9,12 +9,15 @@ import Foundation
 
 struct CharactersModel {
     let title: String
+    let cards: [CharacterCardModel]
 }
 
 #if TESTING
 extension CharactersModel {
     public static var testModel: CharactersModel = {
-       CharactersModel(title: "Characters")
+       CharactersModel(
+        title: "Characters",
+        cards: [.testModel, .testModel, .testModel, .testModel, .testModel, .testModel, .testModel])
     }()
 }
 #endif
