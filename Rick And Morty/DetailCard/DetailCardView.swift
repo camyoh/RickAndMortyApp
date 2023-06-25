@@ -8,34 +8,34 @@
 import SwiftUI
 
 struct DetailCardView: View {
-    let model: DetailCardModel
+    var viewModel: DetailCardViewModel
     
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                Text(model.name)
+                Text(viewModel.cardData.name)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                CharacterImageView(model: model.picture)
+                CharacterImageView(model: viewModel.cardData.picture)
                 HStack{
-                    Text("\(model.species) - \(model.gender)")
+                    Text("\(viewModel.cardData.species) - \(viewModel.cardData.gender)")
                         .font(.title2)
                         .foregroundColor(.white)
                 }
-                Text(model.type)
+                Text(viewModel.cardData.type)
                     .font(.title3)
                     .foregroundColor(.white)
-                Text("Status: \(model.status)")
+                Text("Status: \(viewModel.cardData.status)")
                     .font(.title3)
                     .foregroundColor(.white)
                 HStack(alignment: .top) {
-                    CardView(model: model.cards[0])
-                    CardView(model: model.cards[2])
+                    CardView(model: viewModel.cardData.cards[0])
+                    CardView(model: viewModel.cardData.cards[1])
                 }
                 HStack(alignment: .top) {
-                    CardView(model: model.cards[1])
-                    CardView(model: model.cards[3])
+                    CardView(model: viewModel.cardData.cards[2])
+                    CardView(model: viewModel.cardData.cards[3])
                 }
             }
         }
@@ -65,6 +65,6 @@ struct DetailCardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailCardView(model: .testModel)
+        DetailCardView(viewModel: .testModel)
     }
 }

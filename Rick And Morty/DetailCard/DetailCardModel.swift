@@ -29,8 +29,8 @@ extension DetailCardModel {
         status: "unknown",
         cards: [
             CardModel(title: "Origin", body: "Earth (Replacement Dimension)", image: .origin),
-            CardModel(title: "Episodes", body: "", image: .episode),
             CardModel(title: "Location", body: "Citadel of Ricks", image: .location),
+            CardModel(title: "Episodes", body: "", image: .episode),
             CardModel(title: "More Info", body: "", image: .moreInfo),
         ])
     }()

@@ -16,6 +16,7 @@
 		1CFC12982A47DE9500F4DD35 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC12972A47DE9500F4DD35 /* CardView.swift */; };
 		1CFC129A2A47DEA200F4DD35 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC12992A47DEA200F4DD35 /* CardModel.swift */; };
 		1CFC129C2A47ED1000F4DD35 /* DetailCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC129B2A47ED1000F4DD35 /* DetailCardModel.swift */; };
+		1CFC129F2A4871F200F4DD35 /* DetailCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFC129E2A4871F200F4DD35 /* DetailCardViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		1CFC12972A47DE9500F4DD35 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1CFC12992A47DEA200F4DD35 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		1CFC129B2A47ED1000F4DD35 /* DetailCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardModel.swift; sourceTree = "<group>"; };
+		1CFC129E2A4871F200F4DD35 /* DetailCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			children = (
 				1CFC12842A47A5B200F4DD35 /* DetailCardView.swift */,
 				1CFC129B2A47ED1000F4DD35 /* DetailCardModel.swift */,
+				1CFC129E2A4871F200F4DD35 /* DetailCardViewModel.swift */,
 			);
 			path = DetailCard;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				1CFC12852A47A5B200F4DD35 /* DetailCardView.swift in Sources */,
 				1CFC12832A47A5B200F4DD35 /* Rick_And_MortyApp.swift in Sources */,
 				1CFC12982A47DE9500F4DD35 /* CardView.swift in Sources */,
+				1CFC129F2A4871F200F4DD35 /* DetailCardViewModel.swift in Sources */,
 				1CFC129C2A47ED1000F4DD35 /* DetailCardModel.swift in Sources */,
 				1CFC129A2A47DEA200F4DD35 /* CardModel.swift in Sources */,
 			);
