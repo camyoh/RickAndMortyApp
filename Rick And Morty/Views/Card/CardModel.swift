@@ -9,9 +9,16 @@ import Foundation
 import SwiftUI
 
 struct CardModel {
-    private let title: String
-    private let body: String
-    private let image: Image
+    let title: String
+    let body: String
+    let image: CardImage
+}
+
+enum CardImage: String {
+    case origin = "marte"
+    case episode = "television"
+    case location = "mapa"
+    case moreInfo = "www"
 }
 
 #if TESTING
@@ -20,7 +27,7 @@ extension CardModel {
        CardModel(
         title: "Title",
         body: "Body",
-        image: Image(systemName: "tv"))
+        image: .episode)
     }()
 }
 #endif
