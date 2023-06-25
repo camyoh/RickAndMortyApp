@@ -25,7 +25,7 @@ struct CharacterImageModel {
 extension CharacterImageModel {
     static let testModel: CharacterImageModel = {
         CharacterImageModel(
-            imageUrl: URL(string: "https://rickandmortyapi.com/api/character/avatar/18.jpeg"),
+            imageUrl: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"),
             backgroundColor: .blue)
     }()
 }

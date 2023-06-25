@@ -18,18 +18,24 @@ struct CardView: View {
         Button {
             print("Hello there!")
         } label: {
-            VStack(spacing: 10) {
+            VStack(spacing: 0) {
                 Text(model.title)
                     .font(.title)
                     .foregroundColor(.black)
+                    .padding(.top, 10)
+                Spacer()
                 Text(model.body)
                     .font(.body)
+                    .lineLimit(2)
                     .foregroundColor(.black)
                 Image(model.image.rawValue)
                     .resizable()
                     .frame(width: 40, height: 40)
+                    .padding()
             }
-            .frame(width: 140, height: 140)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.5))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
 
     }

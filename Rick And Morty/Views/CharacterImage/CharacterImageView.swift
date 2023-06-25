@@ -17,47 +17,39 @@ struct CharacterImageView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Circle()
-                    .foregroundColor(.clear)
-                    .frame(
-                        width: geometry.size.width,
-                        height: geometry.size.width
-                    )
-                
-                RoundedRectangle(cornerRadius: 12)
-                    .frame(
-                        width: geometry.size.width/2 * sqrt(2),
-                        height: geometry.size.width/2 * sqrt(2)
-                    )
-                    .rotationEffect(Angle(degrees: 8))
-                    .foregroundColor(model.backgroundColor)
-                    .shadow(radius: 5)
-                
-                AsyncImage(url: model.imageUrl) { phase in
-                    switch phase {
-                    case .failure:
-                        Image(systemName: "photo")
-                            .font(.largeTitle)
-                    case .empty:
-                        EmptyView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                    @unknown default:
-                        ProgressView()
-                    }
-                }
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
                 .frame(
-                    width: geometry.size.width/2 * sqrt(2),
-                    height: geometry.size.width/2 * sqrt(2)
+                    width: 360/2 * sqrt(2),
+                    height: 360/2 * sqrt(2)
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .rotationEffect(Angle(degrees: -2))
+                .rotationEffect(Angle(degrees: 8))
+                .foregroundColor(model.backgroundColor)
                 .shadow(radius: 5)
+            
+            AsyncImage(url: model.imageUrl) { phase in
+                switch phase {
+                case .failure:
+                    Image(systemName: "photo")
+                        .font(.largeTitle)
+                case .empty:
+                    EmptyView()
+                case .success(let image):
+                    image
+                        .resizable()
+                @unknown default:
+                    ProgressView()
+                }
             }
+            .frame(
+                width: 360/2 * sqrt(2),
+                height: 360/2 * sqrt(2)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .rotationEffect(Angle(degrees: -2))
+            .shadow(radius: 5)
         }
+        .frame(width: 300, height: 300)
     }
 }
 
