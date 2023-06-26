@@ -15,6 +15,7 @@ struct DetailScreenModel {
     let type: String
     let status: String
     let cards: [CardModel]
+    
 }
 
 #if TESTING
@@ -28,11 +29,13 @@ extension DetailScreenModel {
         type: "Genetic experiment",
         status: "unknown",
         cards: [
-            CardModel(title: "Origin", body: "Earth (Replacement Dimension)", image: .origin),
-            CardModel(title: "Location", body: "Citadel of Ricks", image: .location),
-            CardModel(title: "Episodes", body: "", image: .episode),
-            CardModel(title: "More Info", body: "", image: .moreInfo),
-        ])
+            CardModel(type: .place, title: "Origin", body: "Earth (Replacement Dimension)", image: .origin, additionalInfo: .testModel),
+            CardModel(type: .place, title: "Location", body: "Citadel of Ricks", image: .location, additionalInfo: .testModel),
+            CardModel(type: .episode, title: "Episodes", body: "", image: .episode, additionalInfo: .testModel2),
+            CardModel(type: .moreInfo, title: "More Info", body: "", image: .moreInfo, additionalInfo: AdditionalInfoModel(typeOrCard: .moreInfo)),
+        ]
+       )
+        
     }()
 }
 #endif

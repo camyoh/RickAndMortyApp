@@ -9,6 +9,9 @@ import SwiftUI
 
 struct DetailScreen: View {
     var viewModel: DetailScreenViewModel
+    @State private var showMoreInfo = false
+    @State private var selectedCard: CardModel?
+    @State private var typeOfCard: TypeOfCard?
     
     var body: some View {
         VStack {
@@ -30,12 +33,32 @@ struct DetailScreen: View {
                     .font(.title3)
                     .foregroundColor(.white)
                 HStack(alignment: .top) {
-                    CardView(model: viewModel.data.cards[0])
-                    CardView(model: viewModel.data.cards[1])
+                    CardView(model: viewModel.data.cards[0]) { card in
+                        showMoreInfo = true
+                        selectedCard = card
+                    }
+                    CardView(model: viewModel.data.cards[1]) { card in
+                        showMoreInfo = true
+                        selectedCard = card
+                    }
                 }
                 HStack(alignment: .top) {
-                    CardView(model: viewModel.data.cards[2])
-                    CardView(model: viewModel.data.cards[3])
+                    CardView(model: viewModel.data.cards[2]) { card in
+                        showMoreInfo = true
+                        selectedCard = card
+                    }
+                    CardView(model: viewModel.data.cards[3]) { card in
+                        
+                    }
+                }
+            }
+            .sheet(isPresented: $showMoreInfo) {
+                if let additionalInfo = selectedCard?.additionalInfo {
+                    if additionalInfo.typeOrCard != .moreInfo {
+                        AdditionalInfoView(model: additionalInfo)
+                            .presentationDetents([.fraction(0.3)])
+                            .presentationDragIndicator(.hidden)
+                    }
                 }
             }
         }
