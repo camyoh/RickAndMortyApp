@@ -10,7 +10,7 @@ import Foundation
 class DetailScreenViewModel: ObservableObject {
     @Published var data: DetailScreenModel
     @Published var isLoading: Bool
-    let fetchData: ApiRequest
+    let fetchData: ApiUrlRequest
     
     var shouldShowCards: Bool {
         data.cards.count == 4
@@ -18,7 +18,7 @@ class DetailScreenViewModel: ObservableObject {
     
     init(
         data: DetailScreenModel = DetailScreenModel(),
-        fetchData: ApiRequest = ApiRequest()
+        fetchData: ApiUrlRequest
     ) {
         self.data = data
         self.fetchData = fetchData
@@ -58,7 +58,7 @@ class DetailScreenViewModel: ObservableObject {
 #if TESTING
 extension DetailScreenViewModel {
     public static var testModel: DetailScreenViewModel = {
-        DetailScreenViewModel(data: .testModel)
+        DetailScreenViewModel(data: .testModel, fetchData: ApiRequest())
     }()
 }
 #endif

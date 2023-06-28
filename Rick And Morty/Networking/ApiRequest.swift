@@ -63,7 +63,7 @@ extension ApiRequest: ApiUrlRequest {
     
 }
 
-protocol ApiUrlRequest {
+public protocol ApiUrlRequest {
     func characterRequest(id: Int) async throws -> CharacterEntity
     func searchCharacterBy(name: String) async throws -> CharacterSearchedEntity
 }

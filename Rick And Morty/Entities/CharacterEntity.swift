@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - CharacterEntity
-struct CharacterEntity: Codable {
+public struct CharacterEntity: Codable {
     let id: Int
     let name, status, species, type: String
     let gender: String

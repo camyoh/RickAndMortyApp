@@ -11,11 +11,11 @@ class CharactersViewModel: ObservableObject {
     @Published var data: CharactersModel
     @Published var searchedList: [CharacterCardModel]
     @Published var selectedCharacter: CharacterCardModel
-    let fetchData: ApiRequest
+    let fetchData: ApiUrlRequest
     
     init(
         data: CharactersModel = .init(),
-        fetchData: ApiRequest = .init()
+        fetchData: ApiUrlRequest
     ) {
         self.data = data
         self.fetchData = fetchData
@@ -47,7 +47,7 @@ class CharactersViewModel: ObservableObject {
     }
     
     func getDetailCardViewModel() -> DetailScreenViewModel {
-        DetailScreenViewModel(data: DetailScreenModel(id: selectedCharacter.characterID))
+        DetailScreenViewModel(data: DetailScreenModel(id: selectedCharacter.characterID), fetchData: ApiRequest())
     }
     
     private func getSearchedCharacterCardModel(from search: CharacterSearchedEntity) -> [CharacterCardModel] {
@@ -76,7 +76,7 @@ struct SearchedCharacterCardModel: Identifiable {
 #if TESTING
 extension CharactersViewModel {
     public static var testModel: CharactersViewModel = {
-        CharactersViewModel(data: .testModel)
+        CharactersViewModel(data: .testModel, fetchData: ApiRequest())
     }()
 }
 #endif

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailScreen: View {
-    @StateObject var viewModel: DetailScreenViewModel = .init()
+    @StateObject var viewModel: DetailScreenViewModel = .init(fetchData: ApiRequest())
     private let scheme: DetailScreenScheme = .init()
     @State private var showMoreInfo = false
     @State private var selectedCard: CardModel?

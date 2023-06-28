@@ -15,7 +15,7 @@ struct CharactersScreen: View {
     @State var shouldSaveCard = false
     
     init(
-        viewModel: CharactersViewModel = .init()
+        viewModel: CharactersViewModel = .init(fetchData: ApiRequest())
     ) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         UINavigationBar.appearance().tintColor = .white

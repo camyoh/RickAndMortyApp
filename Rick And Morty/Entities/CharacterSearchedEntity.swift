@@ -8,13 +8,13 @@
 import Foundation
 
 // MARK: - CharacterSearched
-struct CharacterSearchedEntity: Codable {
+public struct CharacterSearchedEntity: Codable {
     let info: InfoCharacterSearchedEntity
     let results: [CharacterEntity]
 }
 
 // MARK: - InfoCharacterSearched
-struct InfoCharacterSearchedEntity: Codable {
+public struct InfoCharacterSearchedEntity: Codable {
     let count, pages: Int
     let next, prev: String?
 }

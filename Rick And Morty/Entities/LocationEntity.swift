@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - LocationEntity
-struct LocationEntity: Codable {
+public struct LocationEntity: Codable {
     let id: Int
     let name, type, dimension: String
     let residents: [String]
