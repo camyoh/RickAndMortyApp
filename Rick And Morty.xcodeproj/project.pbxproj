@@ -73,6 +73,14 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		1CD2B5CE2A4BC1DC00137211 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1CD2B5CC2A4BAAE000137211 /* ApiRequest.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		1CFC12762A47A5B200F4DD35 = {
 			isa = PBXGroup;
 			children = (
@@ -92,7 +100,7 @@
 		1CFC12812A47A5B200F4DD35 /* Rick And Morty */ = {
 			isa = PBXGroup;
 			children = (
-				1CD2B5CC2A4BAAE000137211 /* ApiRequest.swift */,
+				1CD2B5CE2A4BC1DC00137211 /* Networking */,
 				1CD2B5C72A4BA76700137211 /* Entities */,
 				1CFC12A02A48738300F4DD35 /* CharactersScreen */,
 				1CFC129D2A48628500F4DD35 /* DetailScreen */,

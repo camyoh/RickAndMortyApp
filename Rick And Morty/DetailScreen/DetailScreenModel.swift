@@ -8,6 +8,7 @@
 import Foundation
 
 struct DetailScreenModel {
+    let id: Int
     let name: String
     let picture: CharacterImageModel
     let species: String
@@ -17,14 +18,16 @@ struct DetailScreenModel {
     let cards: [CardModel]
     
     init(
+        id: Int = 1,
         name: String = "",
-        picture: CharacterImageModel = CharacterImageModel(backgroundColor: .black),
+        picture: CharacterImageModel = CharacterImageModel(),
         species: String = "",
         gender: String = "",
         type: String = "",
         status: String = "",
         cards: [CardModel] = []
     ) {
+        self.id = id
         self.name = name
         self.picture = picture
         self.species = species
@@ -46,10 +49,10 @@ extension DetailScreenModel {
         type: "Genetic experiment",
         status: "unknown",
         cards: [
-            CardModel(type: .place, title: "Origin", body: "Earth (Replacement Dimension)", image: .origin, additionalInfo: .testModel),
-            CardModel(type: .place, title: "Location", body: "Citadel of Ricks", image: .location, additionalInfo: .testModel),
-            CardModel(type: .episode, title: "Episodes", body: "", image: .episode, additionalInfo: .testModel2),
-            CardModel(type: .moreInfo, title: "More Info", body: "", image: .moreInfo, additionalInfo: AdditionalInfoModel(typeOrCard: .moreInfo)),
+            CardModel(type: .place, title: "Origin", body: "Earth (Replacement Dimension)", image: .origin),//, additionalInfo: .testModel),
+            CardModel(type: .place, title: "Location", body: "Citadel of Ricks", image: .location),//, additionalInfo: .testModel),
+            CardModel(type: .episode, title: "Episodes", body: "", image: .episode),//, additionalInfo: .testModel2),
+            CardModel(type: .moreInfo, title: "More Info", body: "", image: .moreInfo)//, additionalInfo: AdditionalInfoModel(typeOrCard: .moreInfo)),
         ]
        )
         

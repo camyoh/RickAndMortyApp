@@ -35,6 +35,7 @@ struct CardView: View {
                     Text(model.body)
                         .font(.body)
                         .lineLimit(2)
+                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(.white)
                         .padding(.horizontal, 16)

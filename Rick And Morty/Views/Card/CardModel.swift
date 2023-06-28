@@ -13,7 +13,7 @@ struct CardModel {
     let title: String
     let body: String
     let image: CardImage
-    let additionalInfo: AdditionalInfoModel
+//    let additionalInfo: AdditionalInfoModel
     
     
     enum CardImage: String {
@@ -35,8 +35,8 @@ extension CardModel {
         type: .place,
         title: "Title",
         body: "Body Body Body Body Body Body Body Body Body",
-        image: .location,
-        additionalInfo: .testModel
+        image: .location
+//        additionalInfo: .testModel
        )
     }()
     public static let testModel2: CardModel = {
@@ -44,8 +44,8 @@ extension CardModel {
         type: .episode,
         title: "Title",
         body: "",
-        image: .episode,
-        additionalInfo: .testModel2
+        image: .episode
+//        additionalInfo: .testModel2
        )
     }()
 }

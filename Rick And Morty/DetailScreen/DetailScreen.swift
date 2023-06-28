@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailScreen: View {
-    var viewModel: DetailScreenViewModel = .init()
+    @StateObject var viewModel: DetailScreenViewModel = .init()
     @State private var showMoreInfo = false
     @State private var selectedCard: CardModel?
     @State private var typeOfCard: TypeOfCard?
@@ -16,75 +16,86 @@ struct DetailScreen: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                Text(viewModel.data.name)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                CharacterImageView(model: viewModel.data.picture)
-                HStack{
-                    Text("\(viewModel.data.species) - \(viewModel.data.gender)")
-                        .font(.title2)
+                if !viewModel.isLoading {
+                    Text(viewModel.data.name)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
                         .foregroundColor(.white)
-                }
-                Text(viewModel.data.type)
-                    .font(.title3)
-                    .foregroundColor(.white)
-                Text("Status: \(viewModel.data.status)")
-                    .font(.title3)
-                    .foregroundColor(.white)
-                if viewModel.data.cards.count == 4 {
-                    HStack(alignment: .top) {
-                        CardView(model: viewModel.data.cards[0]) { card in
-                            showMoreInfo = true
-                            selectedCard = card
+                    CharacterImageView(model: viewModel.data.picture)
+                    HStack{
+                        Text("\(viewModel.data.species) - \(viewModel.data.gender)")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
+                    Text(viewModel.data.type)
+                        .font(.title3)
+                        .foregroundColor(.white)
+                    Text("Status: \(viewModel.data.status)")
+                        .font(.title3)
+                        .foregroundColor(.white)
+                    if viewModel.data.cards.count == 4 {
+                        HStack(alignment: .top) {
+                            CardView(model: viewModel.data.cards[0]) { card in
+                                showMoreInfo = true
+                                selectedCard = card
+                            }
+                            CardView(model: viewModel.data.cards[1]) { card in
+                                showMoreInfo = true
+                                selectedCard = card
+                            }
                         }
-                        CardView(model: viewModel.data.cards[1]) { card in
-                            showMoreInfo = true
-                            selectedCard = card
+                        HStack(alignment: .top) {
+                            CardView(model: viewModel.data.cards[2]) { card in
+                                showMoreInfo = true
+                                selectedCard = card
+                            }
+                            CardView(model: viewModel.data.cards[3]) { card in
+                                
+                            }
                         }
                     }
-                    HStack(alignment: .top) {
-                        CardView(model: viewModel.data.cards[2]) { card in
-                            showMoreInfo = true
-                            selectedCard = card
-                        }
-                        CardView(model: viewModel.data.cards[3]) { card in
-                            
-                        }
-                    }
+                } else {
+                    ProgressView()
                 }
+                //            .sheet(isPresented: $showMoreInfo) {
+                //                if let additionalInfo = selectedCard?.additionalInfo {
+                //                    if additionalInfo.typeOrCard != .moreInfo {
+                //                        AdditionalInfoView(model: additionalInfo)
+                //                            .presentationDetents([.fraction(0.3)])
+                //                            .presentationDragIndicator(.hidden)
+                //                    }
+                //                }
+                //            }
             }
-            .sheet(isPresented: $showMoreInfo) {
-                if let additionalInfo = selectedCard?.additionalInfo {
-                    if additionalInfo.typeOrCard != .moreInfo {
-                        AdditionalInfoView(model: additionalInfo)
-                            .presentationDetents([.fraction(0.3)])
-                            .presentationDragIndicator(.hidden)
-                    }
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .top
+            )
+            .padding()
+            .background(
+                LinearGradient(
+                    gradient:
+                        Gradient(colors: [
+                            Color(red: 95/255, green: 198/255, blue: 58/255),
+                            Color(red: 60/255, green: 135/255, blue: 60/255),
+                            Color(red: 13/255, green: 64/255, blue: 60/255),
+                            Color(red: 60/255, green: 135/255, blue: 60/255),
+                            Color(red: 95/255, green: 198/255, blue: 58/255),
+                        ]),
+                    startPoint: .bottomLeading,
+                    endPoint: .topTrailing)
+            )
+            .task {
+                do {
+                    try await viewModel.fetchDetailScreenData()
+                } catch {
+                    
                 }
             }
         }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: .infinity,
-            alignment: .top
-        )
-        .padding()
-        .background(
-            LinearGradient(
-                gradient:
-                    Gradient(colors: [
-                        Color(red: 95/255, green: 198/255, blue: 58/255),
-                        Color(red: 60/255, green: 135/255, blue: 60/255),
-                        Color(red: 13/255, green: 64/255, blue: 60/255),
-                        Color(red: 60/255, green: 135/255, blue: 60/255),
-                        Color(red: 95/255, green: 198/255, blue: 58/255),
-                        ]),
-                startPoint: .bottomLeading,
-                endPoint: .topTrailing)
-        )
     }
 }
 

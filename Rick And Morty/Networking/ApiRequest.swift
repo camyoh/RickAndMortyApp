@@ -8,12 +8,12 @@
 import Foundation
 
 struct ApiRequest {
-    var characterId: String
+    var characterId: Int = 1
 }
 
 extension ApiRequest: ApiUrlRequest {
     
-    func characterRequest(id: String) async throws -> CharacterEntity {
+    func characterRequest(id: Int) async throws -> CharacterEntity {
         let endpoint = "https://rickandmortyapi.com/api/character/\(id)"
         
         guard let url = URL(string: endpoint) else {
@@ -37,7 +37,7 @@ extension ApiRequest: ApiUrlRequest {
 }
 
 protocol ApiUrlRequest {
-    func characterRequest(id: String) async throws -> CharacterEntity
+    func characterRequest(id: Int) async throws -> CharacterEntity
 }
 
 enum ApiError: Error {

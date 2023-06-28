@@ -14,7 +14,7 @@ struct CharacterImageModel {
     
     init(
         imageUrl: URL? = nil,
-        backgroundColor: Color
+        backgroundColor: Color = Color(red: 250/255, green: 248/255, blue: 191/255)
     ) {
         self.imageUrl = imageUrl
         self.backgroundColor = backgroundColor
