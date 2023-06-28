@@ -13,6 +13,12 @@ struct DetailScreen: View {
     @State private var selectedCard: CardModel?
     @State private var typeOfCard: TypeOfCard?
     
+    var showAddButton: Bool
+    
+    @Binding var saveCard: Bool
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -91,24 +97,35 @@ struct DetailScreen: View {
                             endPoint: .topTrailing)
                     )
                     
-                    NavigationLink {
-                        //CharactersScreen()
-                    } label: {
-                        HStack(alignment: .bottom) {
-                            Spacer()
-                            Image(systemName: "list.bullet")
-                                .font(.title2)
-                                .frame(width: 50, height: 50)
-                                .background(.gray)
-                                .clipShape(Circle())
+                    HStack(alignment: .bottom) {
+                        Spacer()
+                        Button {
+                            if showAddButton {saveCard.toggle()}
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            if showAddButton {
+                                Image(systemName: "plus.circle")
+                                    .font(.title2)
+                                    .frame(width: 50, height: 50)
+                                    .background(.gray)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "list.bullet")
+                                    .font(.title2)
+                                    .frame(width: 50, height: 50)
+                                    .background(.gray)
+                                    .clipShape(Circle())
+                            }
+                            
                         }
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                        .padding(.trailing, 18)
+                        
                     }
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .padding(.trailing, 18)
                     
                 }
                 .onAppear() {
-                    print("Vista detalle \(viewModel.data.id)")
+//                    print("Vista detalle \(viewModel.data.id)")
                 }
                 .task {
                     do {
@@ -124,6 +141,7 @@ struct DetailScreen: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailScreen(viewModel: .testModel)
+        Text("")
+//        DetailScreen(viewModel: .testModel, characterCard: ())
     }
 }

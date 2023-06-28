@@ -9,9 +9,9 @@ import Foundation
 
 class CharactersViewModel: ObservableObject {
     @Published var data: CharactersModel
-    @Published var searchedList: [SearchedCharacterCardModel]
+    @Published var searchedList: [CharacterCardModel]
+    @Published var selectedCharacter: CharacterCardModel
     let fetchData: ApiRequest
-    var searchedCharacterID = 1
     
     init(
         data: CharactersModel = .init(),
@@ -20,6 +20,7 @@ class CharactersViewModel: ObservableObject {
         self.data = data
         self.fetchData = fetchData
         self.searchedList = []
+        self.selectedCharacter = .init()
     }
     
     func clearSearchedList() {
@@ -37,13 +38,23 @@ class CharactersViewModel: ObservableObject {
         }
     }
     
-    func updateSearchedCharacterID(with id: Int) {
-        searchedCharacterID = id
+    func updateSelectedCharacter(with character: CharacterCardModel) {
+        selectedCharacter = character
     }
     
-    private func getSearchedCharacterCardModel(from search: CharacterSearchedEntity) -> [SearchedCharacterCardModel] {
+    func addCharacterToList() {
+        data.cards.append(selectedCharacter)
+    }
+    
+    private func getSearchedCharacterCardModel(from search: CharacterSearchedEntity) -> [CharacterCardModel] {
         search.results.map { character in
-            SearchedCharacterCardModel(name: character.name, id: character.id)
+            CharacterCardModel(
+                characterID: character.id,
+                name: character.name,
+                species: character.species,
+                gender: character.gender,
+                imageUrl: URL(string: character.image)
+            )
         }
     }
 }

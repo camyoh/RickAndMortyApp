@@ -12,6 +12,7 @@ struct CharactersScreen: View {
     @State private var searchText = ""
     @State private var showDetailScreen = false
     @State private var showDetailScreen2 = false
+    @State var saveCard = false
     
     init() {
         UINavigationBar.appearance().tintColor = .white
@@ -22,10 +23,15 @@ struct CharactersScreen: View {
             ScrollView {
                 ForEach(viewModel.data.cards) { card in
                     CharacterCardView(model: card) { card in
+                        viewModel.updateSelectedCharacter(with: card)
                         showDetailScreen = true
                     }
                     .fullScreenCover(isPresented: $showDetailScreen) {
-                        DetailScreen(viewModel: DetailScreenViewModel(data: DetailScreenModel(id: 2)))
+                        DetailScreen(
+                            viewModel: DetailScreenViewModel(data: DetailScreenModel(id: viewModel.selectedCharacter.characterID)),
+                            showAddButton: false,
+                            saveCard: $saveCard
+                        )
                     }
                 }
             }
@@ -44,15 +50,18 @@ struct CharactersScreen: View {
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Search a character")) {
             ForEach(viewModel.searchedList) { character in
                 Button {
-                    viewModel.updateSearchedCharacterID(with: character.id)
-                    showDetailScreen2 = true
+                    viewModel.updateSelectedCharacter(with: character)
+                    showDetailScreen2.toggle()
                 } label: {
-                    Text("\(character.name) - \(character.id)")
+                    Text("\(character.name) - \(character.characterID)")
                 }
             }
         }
         .sheet(isPresented: $showDetailScreen2) {
-            DetailScreen(viewModel: DetailScreenViewModel(data: DetailScreenModel(id: viewModel.searchedCharacterID)))
+            DetailScreen(
+                viewModel: DetailScreenViewModel(data: DetailScreenModel(id: viewModel.selectedCharacter.characterID)),
+                showAddButton: true,
+                saveCard: $saveCard)
         }
         .onChange(of: searchText, perform: { newValue in
             Task {
@@ -69,6 +78,12 @@ struct CharactersScreen: View {
             }
         })
         .environment(\.colorScheme, .dark)
+        .onAppear() {
+            print("vista lista")
+        }
+        .onChange(of: saveCard) { newValue in
+            viewModel.addCharacterToList()
+        }
     }
 }
 
