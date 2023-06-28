@@ -129,10 +129,10 @@
 				1CFC12A02A48738300F4DD35 /* CharactersScreen */,
 				1CFC129D2A48628500F4DD35 /* DetailScreen */,
 				1CFC12902A47A62900F4DD35 /* Views */,
+				1CD2B5DD2A4CC4D300137211 /* Utils */,
+				1CFC12882A47A5B500F4DD35 /* Preview Content */,
 				1CFC12822A47A5B200F4DD35 /* Rick_And_MortyApp.swift */,
 				1CFC12862A47A5B500F4DD35 /* Assets.xcassets */,
-				1CFC12882A47A5B500F4DD35 /* Preview Content */,
-				1CD2B5DD2A4CC4D300137211 /* Utils */,
 			);
 			path = "Rick And Morty";
 			sourceTree = "<group>";
