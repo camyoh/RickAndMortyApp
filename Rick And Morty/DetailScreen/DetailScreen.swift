@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailScreen: View {
-    var viewModel: DetailScreenViewModel
+    var viewModel: DetailScreenViewModel = .init()
     @State private var showMoreInfo = false
     @State private var selectedCard: CardModel?
     @State private var typeOfCard: TypeOfCard?
@@ -32,23 +32,25 @@ struct DetailScreen: View {
                 Text("Status: \(viewModel.data.status)")
                     .font(.title3)
                     .foregroundColor(.white)
-                HStack(alignment: .top) {
-                    CardView(model: viewModel.data.cards[0]) { card in
-                        showMoreInfo = true
-                        selectedCard = card
+                if viewModel.data.cards.count == 4 {
+                    HStack(alignment: .top) {
+                        CardView(model: viewModel.data.cards[0]) { card in
+                            showMoreInfo = true
+                            selectedCard = card
+                        }
+                        CardView(model: viewModel.data.cards[1]) { card in
+                            showMoreInfo = true
+                            selectedCard = card
+                        }
                     }
-                    CardView(model: viewModel.data.cards[1]) { card in
-                        showMoreInfo = true
-                        selectedCard = card
-                    }
-                }
-                HStack(alignment: .top) {
-                    CardView(model: viewModel.data.cards[2]) { card in
-                        showMoreInfo = true
-                        selectedCard = card
-                    }
-                    CardView(model: viewModel.data.cards[3]) { card in
-                        
+                    HStack(alignment: .top) {
+                        CardView(model: viewModel.data.cards[2]) { card in
+                            showMoreInfo = true
+                            selectedCard = card
+                        }
+                        CardView(model: viewModel.data.cards[3]) { card in
+                            
+                        }
                     }
                 }
             }

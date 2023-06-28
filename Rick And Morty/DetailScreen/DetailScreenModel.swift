@@ -16,6 +16,23 @@ struct DetailScreenModel {
     let status: String
     let cards: [CardModel]
     
+    init(
+        name: String = "",
+        picture: CharacterImageModel = CharacterImageModel(backgroundColor: .black),
+        species: String = "",
+        gender: String = "",
+        type: String = "",
+        status: String = "",
+        cards: [CardModel] = []
+    ) {
+        self.name = name
+        self.picture = picture
+        self.species = species
+        self.gender = gender
+        self.type = type
+        self.status = status
+        self.cards = cards
+    }
 }
 
 #if TESTING

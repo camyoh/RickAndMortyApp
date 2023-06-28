@@ -9,6 +9,12 @@ import Foundation
 
 struct DetailScreenViewModel {
     let data: DetailScreenModel
+    
+    init(
+        data: DetailScreenModel = DetailScreenModel()
+    ) {
+        self.data = data
+    }
 }
 
 #if TESTING
