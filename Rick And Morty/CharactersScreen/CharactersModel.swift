@@ -9,7 +9,15 @@ import Foundation
 
 struct CharactersModel {
     let title: String
-    let cards: [CharacterCardModel]
+    var cards: [CharacterCardModel]
+    
+    init(
+        title: String = "Characters",
+        cards: [CharacterCardModel] = []
+    ) {
+        self.title = title
+        self.cards = cards
+    }
 }
 
 #if TESTING

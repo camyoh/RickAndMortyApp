@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CharacterCardModel: Identifiable {
     let id: UUID
+    let characterID: Int
     let name: String
     let species: String
     let gender: String
@@ -17,12 +18,14 @@ struct CharacterCardModel: Identifiable {
     
     init(
         id: UUID = .init(),
-        name: String,
-        species: String,
-        gender: String,
+        characterID: Int = 1,
+        name: String = "",
+        species: String = "",
+        gender: String = "",
         imageUrl: URL? = nil
     ) {
         self.id = id
+        self.characterID = characterID
         self.name = name
         self.species = species
         self.gender = gender
