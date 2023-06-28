@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CharacterImageView: View {
     private let model: CharacterImageModel
+    private let scheme: CharacterImageScheme = .init()
     
     init(
         model: CharacterImageModel
@@ -18,22 +19,22 @@ struct CharacterImageView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: scheme.cornerRadius)
                 .frame(
-                    width: 360/2 * sqrt(2),
-                    height: 360/2 * sqrt(2)
+                    width: scheme.imageWidth,
+                    height: scheme.imageWidth
                 )
-                .rotationEffect(Angle(degrees: 8))
+                .rotationEffect(Angle(degrees: scheme.rotationDegrees))
                 .foregroundColor(model.backgroundColor)
-                .shadow(radius: 5)
+                .shadow(radius: scheme.shadowRadius)
             
             AsyncImage(url: model.imageUrl) { phase in
                 switch phase {
                 case .failure:
-                    Image(systemName: "photo")
+                    Image(systemName: scheme.failureIcon)
                         .font(.largeTitle)
                 case .empty:
-                    EmptyView()
+                    ProgressView()
                 case .success(let image):
                     image
                         .resizable()
@@ -42,14 +43,14 @@ struct CharacterImageView: View {
                 }
             }
             .frame(
-                width: 360/2 * sqrt(2),
-                height: 360/2 * sqrt(2)
+                width: scheme.imageWidth,
+                height: scheme.imageWidth
             )
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .rotationEffect(Angle(degrees: -2))
-            .shadow(radius: 5)
+            .clipShape(RoundedRectangle(cornerRadius: scheme.cornerRadius))
+            .rotationEffect(Angle(degrees: scheme.rotationImageDegrees))
+            .shadow(radius: scheme.shadowRadius)
         }
-        .frame(width: 300, height: 300)
+        .frame(width: scheme.containerWidth, height: scheme.containerWidth)
     }
 }
 

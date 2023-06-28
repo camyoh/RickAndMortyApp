@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     private let model: CardModel
+    private let scheme: CardViewScheme = .init()
     private let onCardSelected: (CardModel) -> Void
     
     init(
@@ -24,30 +25,23 @@ struct CardView: View {
             onCardSelected(model)
             print("Hello there!")
         } label: {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: .none) {
                 Text(model.title)
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .textCase(.uppercase)
-                    .foregroundColor(.white)
+                    .styledTitleCard()
                     .padding()
                 if !model.body.isEmpty {
                     Text(model.body)
-                        .font(.body)
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.leading)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 16)
+                        .styledBodyCard()
+                        .padding(.horizontal, scheme.bodyHorizontalPadding)
                 }
                 Image(model.image.rawValue)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: scheme.imageWidth, height: scheme.imageWidth)
                     .padding()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.gray.opacity(0.3))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .background(.gray.opacity(scheme.opacity))
+            .clipShape(RoundedRectangle(cornerRadius: scheme.cardRadius))
         }
     }
 }

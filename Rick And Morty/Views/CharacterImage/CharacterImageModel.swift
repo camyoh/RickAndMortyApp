@@ -14,7 +14,7 @@ struct CharacterImageModel {
     
     init(
         imageUrl: URL? = nil,
-        backgroundColor: Color = Color(red: 250/255, green: 248/255, blue: 191/255)
+        backgroundColor: Color = .rickYellow
     ) {
         self.imageUrl = imageUrl
         self.backgroundColor = backgroundColor
@@ -25,8 +25,8 @@ struct CharacterImageModel {
 extension CharacterImageModel {
     static let testModel: CharacterImageModel = {
         CharacterImageModel(
-            imageUrl: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"),
-            backgroundColor: Color(red: 250/255, green: 248/255, blue: 191/255))
+            imageUrl: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")
+        )
     }()
 }
 #endif

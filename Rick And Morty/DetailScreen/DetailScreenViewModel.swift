@@ -12,6 +12,10 @@ class DetailScreenViewModel: ObservableObject {
     @Published var isLoading: Bool
     let fetchData: ApiRequest
     
+    var shouldShowCards: Bool {
+        data.cards.count == 4
+    }
+    
     init(
         data: DetailScreenModel = DetailScreenModel(),
         fetchData: ApiRequest = ApiRequest()

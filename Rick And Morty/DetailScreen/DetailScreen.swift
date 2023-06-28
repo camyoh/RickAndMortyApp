@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailScreen: View {
     @StateObject var viewModel: DetailScreenViewModel = .init()
+    private let scheme: DetailScreenScheme = .init()
     @State private var showMoreInfo = false
     @State private var selectedCard: CardModel?
     @State private var typeOfCard: TypeOfCard?
@@ -16,7 +17,6 @@ struct DetailScreen: View {
     var showAddButton: Bool
     
     @Binding var saveCard: Bool
-    
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -24,56 +24,17 @@ struct DetailScreen: View {
             VStack {
                 ZStack {
                     ScrollView(showsIndicators: false) {
-                        if !viewModel.isLoading {
-                            Text(viewModel.data.name)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            CharacterImageView(model: viewModel.data.picture)
-                            HStack{
-                                Text("\(viewModel.data.species) - \(viewModel.data.gender)")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                            }
-                            Text(viewModel.data.type)
-                                .font(.title3)
-                                .foregroundColor(.white)
-                            Text("Status: \(viewModel.data.status)")
-                                .font(.title3)
-                                .foregroundColor(.white)
-                            if viewModel.data.cards.count == 4 {
-                                HStack(alignment: .top) {
-                                    CardView(model: viewModel.data.cards[0]) { card in
-                                        showMoreInfo = true
-                                        selectedCard = card
-                                    }
-                                    CardView(model: viewModel.data.cards[1]) { card in
-                                        showMoreInfo = true
-                                        selectedCard = card
-                                    }
-                                }
-                                HStack(alignment: .top) {
-                                    CardView(model: viewModel.data.cards[2]) { card in
-                                        showMoreInfo = true
-                                        selectedCard = card
-                                    }
-                                    CardView(model: viewModel.data.cards[3]) { card in
-                                        
-                                    }
-                                }
-                            }
-                        } else {
+                        if viewModel.isLoading {
                             ProgressView()
+                        } else {
+                            characterName
+                            characterImage
+                            characterInfo
+                            
+                            if viewModel.shouldShowCards {
+                                infoCards
+                            }
                         }
-                        //            .sheet(isPresented: $showMoreInfo) {
-                        //                if let additionalInfo = selectedCard?.additionalInfo {
-                        //                    if additionalInfo.typeOrCard != .moreInfo {
-                        //                        AdditionalInfoView(model: additionalInfo)
-                        //                            .presentationDetents([.fraction(0.3)])
-                        //                            .presentationDragIndicator(.hidden)
-                        //                    }
-                        //                }
-                        //            }
                     }
                     .frame(
                         minWidth: 0,
@@ -83,49 +44,9 @@ struct DetailScreen: View {
                         alignment: .top
                     )
                     .padding()
-                    .background(
-                        LinearGradient(
-                            gradient:
-                                Gradient(colors: [
-                                    Color(red: 95/255, green: 198/255, blue: 58/255),
-                                    Color(red: 60/255, green: 135/255, blue: 60/255),
-                                    Color(red: 13/255, green: 64/255, blue: 60/255),
-                                    Color(red: 60/255, green: 135/255, blue: 60/255),
-                                    Color(red: 95/255, green: 198/255, blue: 58/255),
-                                ]),
-                            startPoint: .bottomLeading,
-                            endPoint: .topTrailing)
-                    )
+                    .setGreenGradientBackground()
                     
-                    HStack(alignment: .bottom) {
-                        Spacer()
-                        Button {
-                            if showAddButton {saveCard.toggle()}
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            if showAddButton {
-                                Image(systemName: "plus.circle")
-                                    .font(.title2)
-                                    .frame(width: 50, height: 50)
-                                    .background(.gray)
-                                    .clipShape(Circle())
-                            } else {
-                                Image(systemName: "list.bullet")
-                                    .font(.title2)
-                                    .frame(width: 50, height: 50)
-                                    .background(.gray)
-                                    .clipShape(Circle())
-                            }
-                            
-                        }
-                        
-                    }
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .padding(.trailing, 18)
-                    
-                }
-                .onAppear() {
-//                    print("Vista detalle \(viewModel.data.id)")
+                    floatingButton
                 }
                 .task {
                     do {
@@ -137,11 +58,84 @@ struct DetailScreen: View {
             }
         }
     }
+
+    // MARK: Views
+    var characterName: some View {
+        Text(viewModel.data.name)
+            .font(.largeTitle)
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+    }
+    
+    var characterImage: some View {
+        CharacterImageView(model: viewModel.data.picture)
+    }
+    
+    var characterInfo: some View {
+        VStack() {
+            HStack{
+                Text("\(viewModel.data.species) - \(viewModel.data.gender)")
+                    .font(.title2)
+                    .foregroundColor(.white)
+            }
+            Text(viewModel.data.type)
+                .font(.title3)
+                .foregroundColor(.white)
+            Text("Status: \(viewModel.data.status)")
+                .font(.title3)
+                .foregroundColor(.white)
+        }
+    }
+    
+    var infoCards: some View {
+        VStack() {
+            HStack(alignment: .top) {
+                CardView(model: viewModel.data.cards[0]) { card in
+                    showMoreInfo = true
+                    selectedCard = card
+                }
+                CardView(model: viewModel.data.cards[1]) { card in
+                    showMoreInfo = true
+                    selectedCard = card
+                }
+            }
+            HStack(alignment: .top) {
+                CardView(model: viewModel.data.cards[2]) { card in
+                    showMoreInfo = true
+                    selectedCard = card
+                }
+                CardView(model: viewModel.data.cards[3]) { card in
+                    
+                }
+            }
+        }
+    }
+    
+    var floatingButton: some View {
+        HStack(alignment: .bottom) {
+            Spacer()
+            Button {
+                if showAddButton {saveCard.toggle()}
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                Image(systemName: showAddButton ? scheme.addButton : scheme.listButton)
+                    .font(.title2)
+                    .frame(width: scheme.buttonWidth, height: scheme.buttonWidth)
+                    .background(Color.gray)
+                    .clipShape(Circle())
+            }
+            
+        }
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .padding(.trailing, scheme.buttonPadding)
+        .padding(.bottom, scheme.buttonPadding)
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Text("")
-//        DetailScreen(viewModel: .testModel, characterCard: ())
+        DetailScreen(viewModel: .testModel, showAddButton: false, saveCard: .constant(false))
     }
 }

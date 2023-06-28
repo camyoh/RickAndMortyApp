@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CharacterCardView: View {
     let model: CharacterCardModel
+    let scheme: CharacterCardScheme = .init()
     let onCardSelected: (CharacterCardModel) -> Void
     
     init(
@@ -26,20 +27,17 @@ struct CharacterCardView: View {
             } label: {
                 VStack(alignment: .leading) {
                     Text(model.name)
-                        .foregroundColor(.white)
-                        .textCase(.uppercase)
-                        .font(.headline)
+                        .styledTitleCharacterCard()
                         .padding()
                     Text("\(model.species) - \(model.gender)")
-                        .foregroundColor(.white)
-                        .font(.body)
+                        .styledBodyCharacterCard()
                         .padding()
                 }
                 Spacer()
                 AsyncImage(url: model.imageUrl) { phase in
                     switch phase {
                     case .failure:
-                        Image(systemName: "photo")
+                        Image(systemName: scheme.failureImage)
                             .font(.largeTitle)
                     case .empty:
                         EmptyView()
@@ -51,17 +49,17 @@ struct CharacterCardView: View {
                     }
                 }
                 .frame(
-                    width: 80,
-                    height: 80
+                    width: scheme.imageWidth,
+                    height: scheme.imageWidth
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .shadow(radius: 5)
-                .padding(10)
+                .clipShape(RoundedRectangle(cornerRadius: scheme.imageCornerRadius))
+                .shadow(radius: scheme.shadowRadius)
+                .padding(scheme.imagePadding)
             }
 
         }
-        .background(.gray.opacity(0.3))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .background(.gray.opacity(scheme.opacity))
+        .clipShape(RoundedRectangle(cornerRadius: scheme.cardRadius))
     }
 }
 

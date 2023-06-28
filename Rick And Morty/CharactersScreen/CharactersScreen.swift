@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct CharactersScreen: View {
-    @StateObject var viewModel: CharactersViewModel = .init()
+    @StateObject var viewModel: CharactersViewModel
     @State private var searchText = ""
     @State private var showDetailScreen = false
-    @State private var showDetailScreen2 = false
-    @State var saveCard = false
+    @State private var showDetailScreenWithAddIcon = false
+    @State var shouldSaveCard = false
     
-    init() {
+    init(
+        viewModel: CharactersViewModel = .init()
+    ) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         UINavigationBar.appearance().tintColor = .white
     }
     
@@ -28,9 +31,9 @@ struct CharactersScreen: View {
                     }
                     .fullScreenCover(isPresented: $showDetailScreen) {
                         DetailScreen(
-                            viewModel: DetailScreenViewModel(data: DetailScreenModel(id: viewModel.selectedCharacter.characterID)),
+                            viewModel: viewModel.getDetailCardViewModel(),
                             showAddButton: false,
-                            saveCard: $saveCard
+                            saveCard: $shouldSaveCard
                         )
                     }
                 }
@@ -38,10 +41,7 @@ struct CharactersScreen: View {
             .frame(maxWidth: .infinity)
             .scrollIndicators(.hidden)
             .padding(.horizontal, 20)
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-            .background(Color(red: 13/255, green: 64/255, blue: 60/255))
+            .background(Color.rickDarkGreen)
             .navigationTitle(
                 Text(viewModel.data.title)
             )
@@ -51,17 +51,17 @@ struct CharactersScreen: View {
             ForEach(viewModel.searchedList) { character in
                 Button {
                     viewModel.updateSelectedCharacter(with: character)
-                    showDetailScreen2.toggle()
+                    showDetailScreenWithAddIcon.toggle()
                 } label: {
                     Text("\(character.name) - \(character.characterID)")
                 }
             }
         }
-        .sheet(isPresented: $showDetailScreen2) {
+        .sheet(isPresented: $showDetailScreenWithAddIcon) {
             DetailScreen(
-                viewModel: DetailScreenViewModel(data: DetailScreenModel(id: viewModel.selectedCharacter.characterID)),
+                viewModel: viewModel.getDetailCardViewModel(),
                 showAddButton: true,
-                saveCard: $saveCard)
+                saveCard: $shouldSaveCard)
         }
         .onChange(of: searchText, perform: { newValue in
             Task {
@@ -78,10 +78,7 @@ struct CharactersScreen: View {
             }
         })
         .environment(\.colorScheme, .dark)
-        .onAppear() {
-            print("vista lista")
-        }
-        .onChange(of: saveCard) { newValue in
+        .onChange(of: shouldSaveCard) { newValue in
             viewModel.addCharacterToList()
         }
     }
@@ -89,6 +86,6 @@ struct CharactersScreen: View {
 
 struct CharactersScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CharactersScreen()
+        CharactersScreen(viewModel: .testModel)
     }
 }

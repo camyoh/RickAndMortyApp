@@ -46,6 +46,10 @@ class CharactersViewModel: ObservableObject {
         data.cards.append(selectedCharacter)
     }
     
+    func getDetailCardViewModel() -> DetailScreenViewModel {
+        DetailScreenViewModel(data: DetailScreenModel(id: selectedCharacter.characterID))
+    }
+    
     private func getSearchedCharacterCardModel(from search: CharacterSearchedEntity) -> [CharacterCardModel] {
         search.results.map { character in
             CharacterCardModel(
