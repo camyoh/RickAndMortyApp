@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - CharacterEntity
 public struct CharacterEntity: Codable {
     let id: Int
     let name, status, species, type: String
@@ -19,7 +18,6 @@ public struct CharacterEntity: Codable {
     let created: String
 }
 
-// MARK: - Location
 struct Location: Codable {
     let name: String
     let url: String

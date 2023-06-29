@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - LocationEntity
 public struct LocationEntity: Codable {
     let id: Int
     let name, type, dimension: String
