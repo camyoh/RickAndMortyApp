@@ -105,7 +105,9 @@ struct DetailScreen: View {
                     selectedCard = card
                 }
                 CardView(model: viewModel.data.cards[3]) { card in
-                    
+                    if let wikiURL = viewModel.getWikiUrlFor(name: viewModel.data.name) {
+                        UIApplication.shared.open(wikiURL)
+                    }
                 }
             }
         }

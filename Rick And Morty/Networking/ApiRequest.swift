@@ -8,7 +8,10 @@
 import Foundation
 
 struct ApiRequest {
-    var characterId: Int = 1
+    private func encodeSpaceInText(_ text: String) -> String {
+        let textWithOnlyOneSpace = text.trimmingCharacters(in: .whitespaces)
+        return textWithOnlyOneSpace.replacingOccurrences(of: " ", with: "%20")
+    }
 }
 
 extension ApiRequest: ApiUrlRequest {
@@ -53,14 +56,7 @@ extension ApiRequest: ApiUrlRequest {
         } catch {
             throw ApiError.invalidData
         }
-        
     }
-    
-    private func encodeSpaceInText(_ text: String) -> String {
-        let textWithOnlyOneSpace = text.trimmingCharacters(in: .whitespaces)
-        return textWithOnlyOneSpace.replacingOccurrences(of: " ", with: "%20")
-    }
-    
 }
 
 public protocol ApiUrlRequest {

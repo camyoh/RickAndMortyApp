@@ -37,5 +37,17 @@ final class DetailScreenViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(sut.data.name, expectedName)
     }
+    
+    func test_getWikiUrlFor() {
+        // Given
+        let name = "Rick Sanchez"
+        let expectedUrlString = "https://rickandmorty.fandom.com/en/wiki/Rick_Sanchez"
+        
+        // When
+        let url = sut.getWikiUrlFor(name: name)
+        
+        // Then
+        XCTAssertEqual(url?.absoluteString, expectedUrlString)
+    }
 
 }

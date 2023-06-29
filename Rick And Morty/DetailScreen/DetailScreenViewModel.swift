@@ -38,6 +38,16 @@ class DetailScreenViewModel: ObservableObject {
         }
     }
     
+    func getWikiUrlFor(name: String) -> URL? {
+        let formattedName = name.replacingOccurrences(of: " ", with: "_")
+        
+        guard let url = URL(string: "https://rickandmorty.fandom.com/en/wiki/\(formattedName)") else {
+            return nil
+        }
+        
+        return url
+    }
+    
     private func getDetailScreenModel(from character: CharacterEntity) -> DetailScreenModel {
         DetailScreenModel(
             name: character.name,

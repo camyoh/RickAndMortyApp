@@ -23,7 +23,6 @@ struct CardView: View {
     var body: some View {
         Button {
             onCardSelected(model)
-            print("Hello there!")
         } label: {
             VStack(alignment: .leading, spacing: .none) {
                 Text(model.title)
