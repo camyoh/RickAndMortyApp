@@ -1,4 +1,4 @@
-# RickAndMortyApp
+# Rick And Morty App
 
 La aplicación ha sido desarrollada utilizando SwiftUI y hace uso de la API de [Rick & Morty](https://rickandmortyapi.com). En esta aplicación, se pueden encontrar dos vistas principales. La primera es la vista de detalle, la cual muestra información importante acerca de cada personaje. La segunda vista permite buscar personajes y agregarlos a una lista de favoritos.
 
