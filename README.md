@@ -37,13 +37,13 @@ Se implementó también que la tarjeta de más información abre un enlace exter
 
 ## Por terminar
 Desafortunadamente por el tiempo limitado me es imposible terminar todas las funcionalidades que quise implementar, dejo un listado de lo que queda pendiente:
-[] Paginación en la barra de búsqueda
-[] Uso de core data para almacenar la lista de favoritos
-[] Uso de localizable para tener otro idioma en los labels
-[] Uso de linter para tener un esquema parejo en toda la app
-[] Hacer los view model independientes de las otras vistas, tal vez usando 
-[] Un manejo de los errores y mostrar en pantalla mensajes relacionados
-[] Verificar accesibilidad
-[] Documentación 
-[] Poder eliminar los favoritos de la lista
+- [ ] Paginación en la barra de búsqueda
+- [ ] Uso de core data para almacenar la lista de favoritos
+- [ ] Uso de localizable para tener otro idioma en los labels
+- [ ] Uso de linter para tener un esquema parejo en toda la app
+- [ ] Hacer los view model independientes de las otras vistas, tal vez usando 
+- [ ] Un manejo de los errores y mostrar en pantalla mensajes relacionados
+- [ ] Verificar accesibilidad
+- [ ] Documentación 
+- [ ] Poder eliminar los favoritos de la lista
  
