@@ -18,7 +18,7 @@ struct AdditionalInfoView: View {
                     .font(.title)
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 10)
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading) {
                         Text("Name: \(model.name)")
                             .font(.title2)
@@ -29,7 +29,6 @@ struct AdditionalInfoView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .scrollIndicators(.hidden)
             }
             .padding(.horizontal, 18)
         }
@@ -41,7 +40,7 @@ struct AdditionalInfoView: View {
                     .font(.title)
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 10)
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading) {
                         ForEach(model.episodes, id: \.self) { episode in
                             Text(episode)
@@ -50,7 +49,6 @@ struct AdditionalInfoView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .scrollIndicators(.hidden)
             }
             .padding(.horizontal, 18)
         }

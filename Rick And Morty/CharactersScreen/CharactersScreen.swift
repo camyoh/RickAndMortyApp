@@ -23,7 +23,7 @@ struct CharactersScreen: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 ForEach(viewModel.data.cards) { card in
                     CharacterCardView(model: card) { card in
                         viewModel.updateSelectedCharacter(with: card)
@@ -39,7 +39,6 @@ struct CharactersScreen: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .scrollIndicators(.hidden)
             .padding(.horizontal, 20)
             .background(Color.rickDarkGreen)
             .navigationTitle(
