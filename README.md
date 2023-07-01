@@ -41,7 +41,7 @@ Desafortunadamente por el tiempo limitado me es imposible terminar todas las fun
 - [ ] Uso de core data para almacenar la lista de favoritos
 - [ ] Uso de localizable para tener otro idioma en los labels
 - [ ] Uso de linter para tener un esquema parejo en toda la app
-- [ ] Hacer los view model independientes de las otras vistas, tal vez usando 
+- [ ] Hacer los view model independientes de las otras vistas, tal vez usando el patrón coordinator
 - [ ] Un manejo de los errores y mostrar en pantalla mensajes relacionados
 - [ ] Verificar accesibilidad
 - [ ] Documentación 
