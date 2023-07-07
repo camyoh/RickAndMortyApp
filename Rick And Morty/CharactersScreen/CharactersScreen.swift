@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CharactersScreen: View {
+    @EnvironmentObject var coordinator: Coordinator
     @StateObject var viewModel: CharactersViewModel
     @State private var searchText = ""
     @State private var showDetailScreen = false
@@ -22,45 +23,45 @@ struct CharactersScreen: View {
     }
     
     var body: some View {
-        NavigationView {
-            ScrollView(showsIndicators: false) {
-                ForEach(viewModel.data.cards) { card in
-                    CharacterCardView(model: card) { card in
-                        viewModel.updateSelectedCharacter(with: card)
-                        showDetailScreen = true
-                    }
-                    .fullScreenCover(isPresented: $showDetailScreen) {
-                        DetailScreen(
-                            viewModel: viewModel.getDetailCardViewModel(),
-                            showAddButton: false,
-                            saveCard: $shouldSaveCard
-                        )
-                    }
+        ScrollView(showsIndicators: false) {
+            ForEach(viewModel.data.cards) { card in
+                CharacterCardView(model: card) { card in
+                    viewModel.updateSelectedCharacter(with: card)
+                    coordinator.goCharacterDetail(for: card.characterID)
+                    //                        showDetailScreen = true
+                }
+                .fullScreenCover(isPresented: $showDetailScreen) {
+                    //                        DetailScreen(
+                    //                            viewModel: viewModel.getDetailCardViewModel(),
+                    //                            showAddButton: false,
+                    //                            saveCard: $shouldSaveCard
+                    //                        )
                 }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 20)
-            .background(Color.rickDarkGreen)
-            .navigationTitle(
-                Text(viewModel.data.title)
-            )
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 20)
+        .background(Color.rickDarkGreen)
+        .navigationTitle(
+            Text(viewModel.data.title)
+        )
         .navigationBarBackButtonHidden(true)
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Search a character")) {
             ForEach(viewModel.searchedList) { character in
                 Button {
                     viewModel.updateSelectedCharacter(with: character)
-                    showDetailScreenWithAddIcon.toggle()
+                    coordinator.goCharacterDetail(for: character.characterID)
+                    //                    showDetailScreenWithAddIcon.toggle()
                 } label: {
                     Text("\(character.name) - \(character.characterID)")
                 }
             }
         }
         .sheet(isPresented: $showDetailScreenWithAddIcon) {
-            DetailScreen(
-                viewModel: viewModel.getDetailCardViewModel(),
-                showAddButton: true,
-                saveCard: $shouldSaveCard)
+            //            DetailScreen(
+            //                viewModel: viewModel.getDetailCardViewModel(),
+            //                showAddButton: true,
+            //                saveCard: $shouldSaveCard)
         }
         .onChange(of: searchText, perform: { newValue in
             Task {
@@ -84,7 +85,9 @@ struct CharactersScreen: View {
 }
 
 struct CharactersScreen_Previews: PreviewProvider {
+    @State static var coordinator = Coordinator()
     static var previews: some View {
         CharactersScreen(viewModel: .testModel)
+            .environmentObject(coordinator)
     }
 }

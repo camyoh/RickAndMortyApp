@@ -18,7 +18,7 @@ class DetailScreenViewModel: ObservableObject {
     
     init(
         data: DetailScreenModel = DetailScreenModel(),
-        fetchData: ApiUrlRequest
+        fetchData: ApiUrlRequest = ApiRequest()
     ) {
         self.data = data
         self.fetchData = fetchData

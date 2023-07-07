@@ -8,53 +8,62 @@
 import SwiftUI
 
 struct DetailScreen: View {
-    @StateObject var viewModel: DetailScreenViewModel = .init(fetchData: ApiRequest())
+    @EnvironmentObject var coordinator: Coordinator
+    @StateObject var viewModel: DetailScreenViewModel = .init()
     private let scheme: DetailScreenScheme = .init()
-    @State private var showMoreInfo = false
-    @State private var selectedCard: CardModel?
-    @State private var typeOfCard: TypeOfCard?
     
     var showAddButton: Bool
-    
     @Binding var saveCard: Bool
+    
+    @Environment(\.dismiss) private var dismiss
+    
+//    init(
+//        viewModel: DetailScreenViewModel = .init(),
+//        showAddButton: Bool,
+//        saveCard: Binding<Bool>
+//    ) {
+//        self._viewModel = StateObject(wrappedValue: viewModel)
+//        self.showAddButton = showAddButton
+//        self._saveCard = saveCard
+//        UINavigationBar.appearance().tintColor = .white
+//    }
+    
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ZStack {
-                    ScrollView(showsIndicators: false) {
-                        if viewModel.isLoading {
-                            ProgressView()
-                        } else {
-                            characterName
-                            characterImage
-                            characterInfo
-                            
-                            if viewModel.shouldShowCards {
-                                infoCards
-                            }
-                        }
-                    }
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: .infinity,
-                        minHeight: 0,
-                        maxHeight: .infinity,
-                        alignment: .top
-                    )
-                    .padding()
-                    .setGreenGradientBackground()
+        ScrollView(showsIndicators: false) {
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                VStack {
+                    //                    characterName
+                    characterImage
+                    characterInfo
                     
-                    floatingButton
-                }
-                .task {
-                    do {
-                        try await viewModel.fetchDetailScreenData()
-                    } catch {
-                        
+                    if viewModel.shouldShowCards {
+                        infoCards
                     }
                 }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .navigationTitle(Text(viewModel.data.name))
+//        .navigationBarTitleDisplayMode(.inline)
+        .padding()
+        .setGreenGradientBackground()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Add") {
+                    saveCard.toggle()
+                    dismiss()
+                }
+            }
+        }
+        .task {
+            do {
+                try await viewModel.fetchDetailScreenData()
+            } catch {
+                
             }
         }
     }
@@ -91,18 +100,12 @@ struct DetailScreen: View {
         VStack() {
             HStack(alignment: .top) {
                 CardView(model: viewModel.data.cards[0]) { card in
-                    showMoreInfo = true
-                    selectedCard = card
                 }
                 CardView(model: viewModel.data.cards[1]) { card in
-                    showMoreInfo = true
-                    selectedCard = card
                 }
             }
             HStack(alignment: .top) {
                 CardView(model: viewModel.data.cards[2]) { card in
-                    showMoreInfo = true
-                    selectedCard = card
                 }
                 CardView(model: viewModel.data.cards[3]) { card in
                     if let wikiURL = viewModel.getWikiUrlFor(name: viewModel.data.name) {
@@ -117,8 +120,9 @@ struct DetailScreen: View {
         HStack(alignment: .bottom) {
             Spacer()
             Button {
-                if showAddButton {saveCard.toggle()}
-                presentationMode.wrappedValue.dismiss()
+                coordinator.goCharacterList()
+//                if showAddButton {saveCard.toggle()}
+//                presentationMode.wrappedValue.dismiss()
             } label: {
                 Image(systemName: showAddButton ? scheme.addButton : scheme.listButton)
                     .font(.title2)
@@ -137,7 +141,9 @@ struct DetailScreen: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    @State static var coordinator = Coordinator()
     static var previews: some View {
-        DetailScreen(viewModel: .testModel, showAddButton: false, saveCard: .constant(false))
+            DetailScreen(viewModel: .testModel, showAddButton: false, saveCard: .constant(false))
+                .environmentObject(coordinator)
     }
 }
